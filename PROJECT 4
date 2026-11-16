@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Rate Monitor OLED Simulation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      font-family: Arial, sans-serif;
+      color: #e8fff5;
+      background: #101820;
+    }
+
+    .device {
+      width: min(100%, 420px);
+      padding: 24px;
+      border: 8px solid #34414a;
+      border-radius: 24px;
+      background: #202a31;
+      box-shadow: 0 16px 40px #0008;
+    }
+
+    .screen {
+      min-height: 240px;
+      padding: 20px;
+      border: 3px solid #193c39;
+      border-radius: 10px;
+      background: #071411;
+      color: #58ffc5;
+      font-family: "Courier New", monospace;
+      text-align: center;
+      box-shadow: inset 0 0 18px #20aa7440;
+    }
+
+    .screen h1 {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .heart {
+      margin: 8px 0;
+      font-size: 3.6rem;
+      line-height: 1;
+    }
+
+    .heart.beat {
+      animation: beat 700ms ease-in-out infinite;
+    }
+
+    @keyframes beat {
+      50% { transform: scale(1.18); }
+    }
+
+    .reading {
+      margin: 8px 0;
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+
+    .unit {
+      font-size: 1rem;
+    }
+
+    #status {
+      min-height: 24px;
+      margin: 12px 0 0;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: 0;
+      border-radius: 9px;
+      background: #48d9a7;
+      color: #10251e;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #77f0c4;
+    }
+
+    button:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    .note {
+      margin: 16px 0 0;
+      color: #c5d1d6;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="device">
+    <section class="screen" aria-label="Simulated OLED heart rate display">
+      <h1>HEART RATE MONITOR</h1>
+      <div id="heart" class="heart" aria-hidden="true">♡</div>
+      <p class="reading">
+        <span id="bpm">--</span>
+        <span class="unit">BPM</span>
+      </p>
+      <p id="status" aria-live="polite">Press Measure to simulate a reading</p>
+    </section>
+
+    <button id="measureButton" type="button">Measure</button>
+
+    <p class="note">
+      Demonstration only: this page generates a simulated value and does not
+      measure a real heart rate or provide medical advice.
+    </p>
+  </main>
+
+  <script>
+    const bpmDisplay = document.getElementById("bpm");
+    const statusText = document.getElementById("status");
+    const heart = document.getElementById("heart");
+    const measureButton = document.getElementById("measureButton");
+
+    measureButton.addEventListener("click", () => {
+      // Generate a sample value for interface demonstration only.
+      const simulatedBpm = Math.floor(Math.random() * 41) + 60;
+
+      bpmDisplay.textContent = simulatedBpm;
+      statusText.textContent = "Simulated reading";
+      heart.textContent = "♥";
+      heart.classList.add("beat");
+    });
+  </script>
+</body>
+</html>
